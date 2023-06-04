@@ -43,6 +43,11 @@ app.use(
         'ws://localhost:51442/',
         'ws://localhost:50243/',
         'blob:',
+        'http://localhost:3000/api/v1/users/login',
+        'http://localhost:3000/api/v1/users/logout',
+        'http://localhost:3000/api/v1/bookings/checkout-session/:tourId',
+        'http://localhost:3000/api/v1/users/updateMyPassword',
+        'http://localhost:3000/api/v1/users/updateMyData',
       ],
     },
   })
