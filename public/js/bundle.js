@@ -12014,9 +12014,8 @@ var login = /*#__PURE__*/function () {
     return _regeneratorRuntime().wrap(function _callee$(_context) {
       while (1) switch (_context.prev = _context.next) {
         case 0:
-          console.log(email, password);
-          _context.prev = 1;
-          _context.next = 4;
+          _context.prev = 0;
+          _context.next = 3;
           return (0, _axios.default)({
             method: 'POST',
             url: '/api/v1/users/login',
@@ -12025,10 +12024,10 @@ var login = /*#__PURE__*/function () {
               password: password
             }
           });
-        case 4:
+        case 3:
           res = _context.sent;
           console.log(res);
-          console.log(data);
+          //console.log(data);
           if (res.data.status === 'success') {
             //this is the status we got in post man
             (0, _alerts.showAlert)('success', 'Logged in successfully'); //we have created a div with class success in front-end
@@ -12036,18 +12035,18 @@ var login = /*#__PURE__*/function () {
               location.assign('/');
             }, 1500);
           }
-          _context.next = 14;
+          _context.next = 12;
           break;
-        case 10:
-          _context.prev = 10;
-          _context.t0 = _context["catch"](1);
+        case 8:
+          _context.prev = 8;
+          _context.t0 = _context["catch"](0);
           console.log(_context.t0.response.data.message);
           (0, _alerts.showAlert)('error', _context.t0.response.data.message);
-        case 14:
+        case 12:
         case "end":
           return _context.stop();
       }
-    }, _callee, null, [[1, 10]]);
+    }, _callee, null, [[0, 8]]);
   }));
   return function login(_x, _x2) {
     return _ref.apply(this, arguments);

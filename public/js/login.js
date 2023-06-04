@@ -2,7 +2,7 @@ import axios from 'axios';
 import { showAlert } from './alerts';
 
 export const login = async (email, password) => {
-  console.log(email, password);
+  //console.log(email, password);
   try {
     const res = await axios({
       method: 'POST',
@@ -13,7 +13,7 @@ export const login = async (email, password) => {
       },
     });
     console.log(res);
-    console.log(data);
+    //console.log(data);
     if (res.data.status === 'success') {
       //this is the status we got in post man
       showAlert('success', 'Logged in successfully'); //we have created a div with class success in front-end
