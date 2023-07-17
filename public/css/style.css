@@ -1232,6 +1232,16 @@ body {
   border-radius: 5px;
 }
 
+.logout-form {
+  margin: 0 auto;
+  max-width: 55rem;
+  background-color: #fff;
+  -webkit-box-shadow: 0 2.5rem 8rem 2rem rgba(0, 0, 0, 0.06);
+  box-shadow: 0 2.5rem 8rem 2rem rgba(0, 0, 0, 0.06);
+  padding: 5rem 7rem;
+  border-radius: 5px;
+}
+
 .form__input {
   display: block;
   font-family: inherit;
@@ -1283,6 +1293,11 @@ body {
   align-items: center;
   font-size: 1.6rem;
 }
+.form__photo-upload:focus + label {
+  outline: 3px solid #55c57a;
+  outline-offset: 3px;
+}
+
 
 .form__user-photo {
   height: 7.5rem;
@@ -1297,7 +1312,7 @@ body {
   opacity: 0;
   overflow: hidden;
   position: absolute;
-  z-index: -1;
+  z-index: 10;
 }
 
 .form__upload:focus + label {
@@ -1323,3 +1338,4 @@ body {
   -webkit-transform: translateY(-2px);
   transform: translateY(-2px);
 }
+

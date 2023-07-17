@@ -8,12 +8,13 @@ const bookingController = require('../controllers/bookingController')
 //router.use(authController.isloggedIn)
 
 
-router.get('/',bookingController.createBookingCheckout, authController.isloggedIn, viewController.getOverview)
-router.get('/tour/:slug',authController.isloggedIn, viewController.getTour)
+//router.get('/',bookingController.createBookingCheckout, authController.isloggedIn, viewController.getOverview)
+router.get('/', authController.isloggedIn, viewController.getOverview)
+router.get('/tour/:slug' ,authController.isloggedIn, viewController.getTour)
 router.get('/login',authController.isloggedIn, viewController.getLoginForm)
 router.get('/me', authController.protect, viewController.getAccount)
-router.get('/my-tours', authController.protect, viewController.getMyTours)
+router.get('/my-tours', bookingController.createBookingCheckout,authController.protect, viewController.getMyTours)
 router.post('/submit-user-data',authController.protect, viewController.updateUserData)
-
+router.get('/signup', viewController.signUpForm)
 
 module.exports = router  

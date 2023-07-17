@@ -45,6 +45,14 @@ const getLoginForm = (req, res) => {
     });
 };
 
+const signUpForm = (req, res) => {
+  res
+    .status(200)
+    .render('signup', {
+      title: 'Create your account',
+    });
+};
+
 const getAccount = (req, res) => {
   res.status(200).render('account', {
     title: 'Your Account'
@@ -87,4 +95,4 @@ const getMyTours = asyncwrapper( async (req, res, next) => {
 })
 
 
-module.exports = { getOverview, getTour, getLoginForm , getAccount, updateUserData, getMyTours};
+module.exports = { getOverview, getTour, getLoginForm , getAccount, updateUserData, getMyTours, signUpForm};

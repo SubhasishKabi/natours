@@ -1,22 +1,24 @@
 //console.log("hello");
 import '@babel/polyfill';
 import { login, logout } from './login';
+import { signup } from './signup';
 import { displayMap } from './mapbox';
 import { updateSettings } from './updateSettings';
 import { bookTour } from './stripe';
 
 const mapBox = document.getElementById('map');
 const loginForm = document.querySelector('.form--login');
+const signupForm = document.querySelector('.form--signup');
 const logOutBtn = document.querySelector('.nav__el--logout');
 const userDataForm = document.querySelector('.form-user-data');
 const userPasswordForm = document.querySelector('.form-user-password');
-const bookBtn = document.getElementById('book-tour')
+const bookBtn = document.getElementById('book-tour');
 
 if (mapBox) {
   const locations = JSON.parse(
     document.getElementById('map').dataset.locations
   );
-  displayMap(locations); 
+  displayMap(locations);
 }
 
 if (loginForm) {
@@ -25,8 +27,21 @@ if (loginForm) {
 
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
+
+    login(email, password);
+  });
+}
+if (signupForm) {
  
-    login(email, password); 
+  signupForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    const email = document.getElementById('email').value;
+    const name = document.getElementById('name').value;
+    const password = document.getElementById('password').value;
+    const passwordConfirm = document.getElementById('passwordConfirm').value;
+
+    signup(name,email, password, passwordConfirm);
   });
 }
 
@@ -37,15 +52,13 @@ if (logOutBtn) {
 if (userDataForm) {
   userDataForm.addEventListener('submit', (e) => {
     e.preventDefault();
-    // const name = document.getElementById('name').value;
-    // const email = document.getElementById('email').value;
+    
+    const form = new FormData();
+    form.append('name', document.getElementById('name').value);
+    form.append('email', document.getElementById('email').value);
+    form.append('photo', document.getElementById('photo').files[0]);
 
-    const form = new FormData()
-    form.append('name', document.getElementById('name').value)
-    form.append('email', document.getElementById('email').value)
-    form.append('photo', document.getElementById('photo').files[0])
-
-    updateSettings( form, 'data');
+    updateSettings(form, 'data');
   });
 }
 
@@ -72,21 +85,14 @@ if (userPasswordForm) {
   });
 }
 
-
-if(bookBtn){ 
-  bookBtn.addEventListener('click', e => {
-    e.target.textContent = 'Processing..'
+if (bookBtn) {
+  bookBtn.addEventListener('click', (e) => {
+    e.target.textContent = 'Processing..';
     // const tourId = e.target.dataset.tourdId
-    const {tourId} = e.target.dataset
-    console.log(tourId)
-    bookTour(tourId)
-  })
+    const { tourId } = e.target.dataset;
+    console.log(tourId);
+    bookTour(tourId);
+  });
 }
-
-
-
-
-
-
 
 //meta(http-equiv="Content-Security-Policy" content="default-src 'self' https://*.mapbox.com; connect-src 'self' ws://localhost:50309")

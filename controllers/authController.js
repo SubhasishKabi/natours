@@ -39,9 +39,9 @@ const createSendToken = (user, statusCode, res) => {
   res.status(statusCode).json({
     status: 'success',
     token,
-    data : {
-      user
-    }
+    data: {
+      user,
+    },
   });
 };
 
@@ -49,23 +49,24 @@ const signup = asyncWrapper(async (req, res, next) => {
   //const newUser = await User.create(req.body) //we create a new user using all the data coming with the body . the problem is anyone can specify the role as an admin
   //i.e everyone can basically register as an admin. this is a serious security flaw
 
+  console.log(req.body)
   const newUser = await User.create({
     name: req.body.name,
     email: req.body.email,
     password: req.body.password, //when we are signed up, we are already login
     passwordConfirm: req.body.passwordConfirm,
-    passwordChangedAt: req.body.passwordChangedAt,
+    passwordChangedAt: req.body.passwordChangedAt, 
     photo: req.body.photo,
     role: req.body.role,
     passwordResetToken: req.body.passwordResetToken,
     passwordResetExpires: req.body.passwordResetExpires,
   });
 
-  const url = `${req.protocol}://${req.get('host')}/me`
-  await new Email(newUser, url).sendWelcome()
+  const url = `${req.protocol}://${req.get('host')}/me`;
+  await new Email(newUser, url).sendWelcome();
 
   const token = signToken(newUser._id);
- 
+
   const cookieOptions = {
     expires: new Date(
       Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000
@@ -89,8 +90,6 @@ const signup = asyncWrapper(async (req, res, next) => {
 
   //createSendToken(newUser, 201, res)
 });
-
-
 
 ///----------------------------------------LOGIN--------------------------------------////////////////
 
@@ -254,11 +253,7 @@ const forgotPassword = asyncWrapper(async (req, res, next) => {
 
   // 3) send it to mail
 
- 
-
   //console.log(resetURL)
-
-  
 
   //console.log(message)
 
@@ -273,7 +268,7 @@ const forgotPassword = asyncWrapper(async (req, res, next) => {
       'host'
     )}/api/v1/users/resetPassword/${resetToken}`;
 
-    await new Email(user, resetURL).sendPasswordReset()
+    await new Email(user, resetURL).sendPasswordReset();
 
     res.status(200).json({
       status: 'success',

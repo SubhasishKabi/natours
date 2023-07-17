@@ -18,6 +18,7 @@ const userRouter = require('./routes/userRoutes');
 const reviewRouter = require('./routes/reviewRoutes');
 const viewRouter = require('./routes/viewRoutes');
 const bookingRouter = require('./routes/bookingRoutes');
+const bookingController = require('./controllers/bookingController');
 
 //start express app 🫡
 const app = express();
@@ -46,7 +47,7 @@ app.use(
         // 'http://localhost:3000/api/v1/tours',
         'http://localhost:3000/api/v1/users/login',
         'http://localhost:3000/api/v1/users/logout',
-        'http://localhost:3000/api/v1/bookings/checkout-session/:tourId', 
+        'http://localhost:3000/api/v1/bookings/checkout-session/:tourId',
         'http://localhost:3000/api/v1/users/updateMyPassword',
         'http://localhost:3000/api/v1/users/updateMyData',
       ],
@@ -69,6 +70,7 @@ app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, 'views'));
 
 app.use(express.static(path.join(__dirname, 'public'))); //loclahost:3000/overview.html
+//to serve static files from a directory named "public".
 
 //The line app.use(helmet()) uses the Helmet middleware to secure your Express application.
 //Helmet is a JavaScript library that helps you secure your Express application by setting several HTTP headers.
@@ -92,6 +94,10 @@ const limiter = rateLimit({
 });
 
 app.use('/api', limiter);
+
+//wenhooks
+
+//app.post('/webhook-checkout', express.raw({type: 'application/json'}), bookingController.webhookCheckout )
 
 //Body parsers reading data from body into req.body
 app.use(express.json({ limit: '10kb' }));
